@@ -15,13 +15,17 @@
 <input type="text" name="name" value="" placeholder = "please select a hero" ng-model = "heroOne" id = "firstInput">
   <button ng-click="clickMe()">click me</button>
   <div class ="backgroundImg">
-    <img ng-src="{{firstSearchResult.img}}" alt="">
+    <img ng-src="{{heroOneReturn.img}}" alt="">
   </div>
-  <h1> {{firstSearchResult.name}}</h1>
+  <h1> {{heroOneReturn.name}}</h1>
   </div>
 
   <div>
     <input type="text" name = "name" value="" placeholder= "please select your second hero" ng-model = "heroTwo" id = "secondInput">
+    <div class="backgroundImg">
+      <img ng-src="{{heroTwoReturn.img}}" alt="">
+    </div>
+    <h1>{{heroTwoReturn.name}}</h1>
   </div>
 
 
