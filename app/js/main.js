@@ -2,7 +2,15 @@ var app = angular.module('app', [])
 
 app.controller('myCtrl', function ($scope) {
 
+  var heroOneEvent =[];
+  var heroTwoEvent = [];
+
+  var containEvents = [
+    heroOneEvent, heroTwoEvent
+  ]
+
   function clear() {
+
       $scope.heroOneReturn= {
         id: '',
         description: '',
@@ -36,6 +44,9 @@ app.controller('myCtrl', function ($scope) {
             img: json.data.results[0].thumbnail.path + '/detail.jpg',
             name: json.data.results[0].name
         }
+        $.each(json.data.results[0].events.items, function(i, item){
+          heroTwoEvent.push(item.name)
+        })
 
       },
       error: function() {
@@ -44,9 +55,9 @@ app.controller('myCtrl', function ($scope) {
       }
     })
     setTimeout(function(){
+      $('#heroOneImg').attr('src', $scope.heroOneReturn.img);
+      $('#heroOneName').html($scope.heroOneReturn.name)
 				callback(null, 1);
-        $('.image').attr('src', $scope.heroOneReturn.img)
-
 			}, 2500);
   },
   two: function(callback){
@@ -65,7 +76,9 @@ app.controller('myCtrl', function ($scope) {
             img: json.data.results[0].thumbnail.path + '/detail.jpg',
             name: json.data.results[0].name
           }
-                  console.log($scope.heroTwoReturn.name)
+          $.each(json.data.results[0].events.items, function(i, item){
+            heroTwoEvent.push(item.name)
+          })
         },
         error: function(){
           $scope.heroTwoReturn.name= "this name didn't work."
