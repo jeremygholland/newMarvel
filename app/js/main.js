@@ -1,6 +1,7 @@
 var app = angular.module('app', [])
 
 app.controller('myCtrl', function ($scope) {
+
   function clear() {
       $scope.heroOneReturn= {
         id: '',
@@ -17,16 +18,19 @@ app.controller('myCtrl', function ($scope) {
   }
 
   var apiKey = '64f1f5a1ab896a13dd9c6b4009b0817e';
-  $scope.clickMe= function() {
-    clear();
-    var heroOne = $scope.heroOne;
+
+  $scope.clickMe = function() {
+
+        	async.series({
+            one: function(callback){
+              var heroOne = $scope.heroOne;
     $.ajax({
       type:"GET",
       url: 'http://gateway.marvel.com:80/v1/public/characters?name=' + heroOne +
-				'&limit=100&apikey=64f1f5a1ab896a13dd9c6b4009b0817e',
+				'&limit=100&apikey='+apiKey,
       dataType: 'json',
       success: function(json){
-        $scope.heroOneReturn ={
+        $scope.heroOneReturn = {
             id:json.data.results[0].id,
             description: json.data.results[0].description,
             img: json.data.results[0].thumbnail.path + '/detail.jpg',
@@ -39,30 +43,45 @@ app.controller('myCtrl', function ($scope) {
 
       }
     })
+    setTimeout(function(){
+				callback(null, 1);
+        $('.image').attr('src', $scope.heroOneReturn.img)
 
+			}, 2500);
+  },
+  two: function(callback){
+    console.log('one')
     var heroTwo = $scope.heroTwo;
     $.ajax({
+
       type: "GET",
       url: 'http://gateway.marvel.com:80/v1/public/characters?name=' + heroTwo +
 				'&limit=100&apikey='+apiKey,
         dataType: 'json',
         success:function(json){
           $scope.heroTwoReturn= {
-            id:json.data.results[0].id,
+            id: json.data.results[0].id,
             description: json.data.results[0].description,
             img: json.data.results[0].thumbnail.path + '/detail.jpg',
             name: json.data.results[0].name
           }
+                  console.log($scope.heroTwoReturn.name)
         },
         error: function(){
           $scope.heroTwoReturn.name= "this name didn't work."
         }
-    })
+      })
+      setTimeout(function(){
+          callback(null, 1);
 
-    setTimeout(function(){
-   location = ''
- },10000)
-  }
+        }, 2500);
+    }
 
+});
+        clear();
+}
 
-})
+$scope.testTwo = function(){
+  alert($scope.heroOneReturn.id)
+}
+});

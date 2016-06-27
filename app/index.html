@@ -23,18 +23,19 @@
   <div>
     <input type="text" name = "name" value="" placeholder= "please select your second hero" ng-model = "heroTwo" id = "secondInput">
     <div class="backgroundImg">
-      <img ng-src="{{heroTwoReturn.img}}" alt="">
+      <img src="" class = "image" alt="">
     </div>
     <h1>{{heroTwoReturn.name}}</h1>
+
+    <button ng-click ="testTwo()">click me </button>
   </div>
-
-
+  <script src = "js/lib/asynch.js"></script>
   <script src="js/lib/angular.min.js"></script>
   <script src="js/lib/jQuery.js"></script>
   <script src="js/lib/angularUiRouter.js"></script>
   <script src= "js/lib/jquery-ui.js"></script>
-  <script src = "js/characterlist.js"></script>
-  <script src="js/main.js"></script>
+  <script src = "js/characterlist.js" defer></script>
+  <script src="js/main.js" defer></script>
   <!-- endbuild -->
 </body>
 
